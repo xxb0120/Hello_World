@@ -1,7 +1,7 @@
 # Hello_World 完善方案（Improvement Plan）
 
-> 状态：提案，待维护者确认
-> 提交方式：以 PR 新增本文件，不改变现有代码
+> 状态：已确认并实施（2026-11-04，本 PR）
+> 提交方式：方案与落地实现放在同一个 PR
 > 基准：`master` @ `aa22424`（PR #2 合并后，2026-11-04）
 > 关联讨论：[#3](https://github.com/xxb0120/Hello_World/issues/3)（仓库应包含哪些内容）、[#4](https://github.com/xxb0120/Hello_World/issues/4)（Java 示例）
 
@@ -275,3 +275,17 @@ jobs:
 4. **PR 4（M4）**：ruff 接入 CI。约 0.3 人日。
 
 每个 PR 独立可回滚；PR 1 完成后，后续任何一步都可以暂停而不影响仓库可用性。
+
+## 10. 实施记录（2026-11-04）
+
+维护者确认 D1–D6 后，方案随同一个 PR 落地（仓库规模小，单 PR 的 review 成本低于拆成 4 个 PR）：
+
+- 已落地：
+  - `LICENSE`（MIT，D3）；
+  - `.github/workflows/ci.yml`：Python 3.11–3.14 的单元测试、doctest 与 CLI 冒烟，Java 21 冒烟，ruff 检查；
+  - 根 `README.md` 索引与快速开始、`CONTRIBUTING.md`（P0-3、P0-4）；
+  - `examples/python/`：现有 Python 示例迁移（P1-1，D2）；
+  - `examples/java/HelloWorld.java` 与说明（P2-1，D4，#4）；
+  - `pyproject.toml` 中的 ruff 配置与 `ruff format` 检查（P3-1，D6 的版本基线）。
+- 需要维护者操作：D5（`master` 分支保护要求 CI 通过）需在仓库 Settings → Branches 中配置；#1、#4 的关闭留给维护者（为避免自动关闭，PR 未使用关闭关键字）。
+- 验证：迁移后 7 个单元测试、doctest、Python/Java CLI 冒烟均通过；`ruff check .`、`ruff format --check .` 通过。
